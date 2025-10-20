@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev P – Modern Landing Page</title>
+    <style>
+        /* --- Reset & Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            background: radial-gradient(circle at top left, #0a0a0a, #000);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Animated Background --- */
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(270deg, #2563eb, #7c3aed, #db2777);
+            background-size: 600% 600%;
+            opacity: 0.08;
+            animation: gradientMove 20s ease infinite;
+            z-index: -1;
+        }
+
+        /* --- Navbar --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 10%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+
+        nav button {
+            background: #2563eb;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav button:hover {
+            background: #1d4ed8;
+            transform: scale(1.05);
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 100px 10%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #60a5fa, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            border-color: #2563eb;
+            color: #60a5fa;
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            border-color: #444;
+            background: transparent;
+            color: #ddd;
+        }
+
+        .btn-outline:hover {
+            border-color: #a855f7;
+            color: #a855f7;
+            transform: scale(1.05);
+        }
+
+        /* --- Floating lights --- */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            z-index: -2;
+            animation: float 12s ease-in-out infinite alternate;
+        }
+
+        .glow1 {
+            width: 300px;
+            height: 300px;
+            background: #2563eb;
+            top: 10%;
+            left: 5%;
+        }
+
+        .glow2 {
+            width: 250px;
+            height: 250px;
+            background: #a855f7;
+            bottom: 20%;
+            right: 10%;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(0px);
+            }
+
+            to {
+                transform: translateY(-40px);
+            }
+        }
+
+        /* --- Features --- */
+        .features {
+            background: #0a0a0a;
+        }
+
+        .features h2 {
+            font-size: 2.4rem;
+            margin-bottom: 60px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature {
+            background: linear-gradient(145deg, #111, #050505);
+            border: 1px solid #1f2937;
+            border-radius: 20px;
+            padding: 40px 25px;
+            transition: 0.4s;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 25px rgba(96, 165, 250, 0.3);
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #60a5fa;
+        }
+
+        .feature p {
+            color: #aaa;
+        }
+
+        /* --- Pricing --- */
+        .pricing h2 {
+            font-size: 2.4rem;
+            margin-bottom: 50px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .plan {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 40px 20px;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .plan:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .plan h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .plan p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .plan h4 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #a855f7;
+        }
+
+        .plan button {
+            background: #a855f7;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .plan button:hover {
+            background: #9333ea;
+            transform: scale(1.05);
+        }
+
+        /* --- FAQ --- */
+        .faq {
+            background: #000;
+        }
+
+        .faq h2 {
+            font-size: 2.4rem;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #222;
+            padding: 20px 0;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .faq-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .faq-item h3:hover {
+            color: #60a5fa;
+        }
+
+        .faq-item p {
+            color: #aaa;
+            display: none;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #111;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Glow Elements -->
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+
+    <nav>
+        <h1>Dev P</h1>
+        <button>Get Started</button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Supercharge Your Web Presence with <strong>Dev P</strong></h1>
+        <p>A futuristic landing page template powered by HTML, CSS, and JavaScript — designed for developers, startups,
+            and innovators.</p>
+        <div class="btn-group">
+            <button class="btn btn-primary">🚀 Try Demo</button>
+            <button class="btn btn-outline">Learn More</button>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <h2>Awesome Features</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>⚡ Fast & Lightweight</h3>
+                <p>Optimized structure ensures smooth performance and lightning-fast loading.</p>
+            </div>
+            <div class="feature">
+                <h3>🎨 Stunning UI</h3>
+                <p>Gradient overlays, soft shadows, and smooth animations that impress.</p>
+            </div>
+            <div class="feature">
+                <h3>🧩 Modular Design</h3>
+                <p>Each section is reusable — mix and match for your perfect landing page.</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Fully Responsive</h3>
+                <p>Looks great on desktops, tablets, and mobile devices alike.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing">
+        <h2>Pricing Plans</h2>
+        <div class="pricing-grid">
+            <div class="plan">
+                <h3>Starter</h3>
+                <p>Perfect for personal projects.</p>
+                <h4>$19/mo</h4><button>Choose Plan</button>
+            </div>
+            <div class="plan">
+                <h3>Pro</h3>
+                <p>For startups & small teams.</p>
+                <h4>$49/mo</h4><button>Choose Plan</button>
+            </div>
+            <div class="plan">
+                <h3>Enterprise</h3>
+                <p>For large businesses.</p>
+                <h4>$99/mo</h4><button>Choose Plan</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>Is Dev P free to use?</h3>
+            <p>Yes! It's free to use and modify for personal or commercial projects.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I deploy it easily?</h3>
+            <p>Absolutely! Works perfectly with Netlify or Vercel — one-click deploy.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Does it support animations?</h3>
+            <p>Yes, built-in CSS animations and JS scroll effects make it lively.</p>
+        </div>
+    </section>
+
+    <footer>© 2025 Dev P — Designed with ❤️ by Creative Minds.</footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-item h3').forEach(q => {
+            q.addEventListener('click', () => {
+                const p = q.nextElementSibling;
+                p.style.display = p.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Scroll reveal animation
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.8s forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.feature,.plan,.faq-item').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
